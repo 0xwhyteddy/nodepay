@@ -4,11 +4,11 @@ import uuid
 import cloudscraper
 from loguru import logger
 from fake_useragent import UserAgent
-#from curl_cffi import requests
 
 # Constants
 PING_INTERVAL = 60
 RETRIES = 60
+TOKEN = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMjg2MTU3MjAyNzg4MTg4MTYwIiwiaWF0IjoxNzM0NzU1MTgwLCJleHAiOjE3MzU5NjQ3ODB9.p5APGgM5Jc14VsYFMrHzX5NgQGZKTiEWQuWMJbf53zzpyKnNJBLJJr0h5kGNEytmx4mTHLx_k_2ZWmiX2Cj7hQ"
 
 DOMAIN_API = {
     "SESSION": "http://api.nodepay.ai/api/auth/session",
@@ -41,7 +41,6 @@ async def render_profile_info(token):
         np_session_info = load_session_info()
 
         if not np_session_info:
-            # Generate new browser_id
             browser_id = uuidv4()
             response = await call_api(DOMAIN_API["SESSION"], {}, token)
             valid_resp(response)
@@ -80,9 +79,7 @@ async def call_api(url, data, token):
 
     try:
         scraper = cloudscraper.create_scraper()
-
         response = scraper.post(url, json=data, headers=headers, timeout=30)
-        #response = requests.post(url, json=data, headers=headers, impersonate="chrome110", timeout=30)
         response.raise_for_status()
         return valid_resp(response.json())
     except Exception as e:
@@ -148,25 +145,18 @@ def handle_logout():
     logger.info("Logged out and cleared session info.")
 
 def save_session_info(data):
-    # Saving session info (this could be to a file or a database)
     pass
 
 def load_session_info():
-    return {}  # Return an empty dictionary if no session is saved
+    return {}
 
 async def main():
-    # Take token input directly from the user
-    token = input("Nodepay token: ").strip()
-    if not token:
-        print("Token cannot be empty. Exiting the program.")
-        exit()
-
+    print("Using stored Nodepay token...")
     while True:
-        await render_profile_info(token)
+        await render_profile_info(TOKEN)
         await asyncio.sleep(3)
 
 if __name__ == '__main__':
-    print("\nAlright, we here! Insert your nodepay token that you got from the tutorial.")
     try:
         asyncio.run(main())
     except (KeyboardInterrupt, SystemExit):
