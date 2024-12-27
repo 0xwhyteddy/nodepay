@@ -8,7 +8,7 @@ from fake_useragent import UserAgent
 # Constants
 PING_INTERVAL = 60
 RETRIES = 60
-TOKEN = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMjg2MTU3MjAyNzg4MTg4MTYwIiwiaWF0IjoxNzM0NzU1MTgwLCJleHAiOjE3MzU5NjQ3ODB9.p5APGgM5Jc14VsYFMrHzX5NgQGZKTiEWQuWMJbf53zzpyKnNJBLJJr0h5kGNEytmx4mTHLx_k_2ZWmiX2Cj7hQ"
+TOKEN = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMzIyMTE0MTg2MDE3NzUxMDQwIiwiaWF0IjoxNzM1Mjg3OTQxLCJleHAiOjE3MzY0OTc1NDF9.tpsE3hfkzGpi26zTd8NsTnnAvUW9fEe1b0Amwpmotkbp7aLZS7PjpQrxtUlr9D1INbo_4ZypsMXZM_5xmnRzMQ"
 
 DOMAIN_API = {
     "SESSION": "http://api.nodepay.ai/api/auth/session",
